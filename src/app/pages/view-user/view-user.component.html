@@ -1,1 +1,21 @@
-<p>view-user works!</p>
+<section class="container mx-auto">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <figure>
+        <img [src]="user.image" [alt]="user.username">
+      </figure>
+    </div>
+    <div class="col-12 col-md-6">
+      <h3>{{user.first_name}}</h3>
+      <h3>{{user.last_name}}</h3>
+      <p>Username: {{user.username}}</p>
+      <p>Email: {{user.email}}</p>
+      <div class="userBtns">
+        <button type="button" class="btn btn-info">Eliminar</button>
+        <button type="button" class="btn btn-info">Actualizar</button>
+        <button type="button" class="btn btn-info">Volver al listado</button>
+      </div>
+    </div>
+  </div>
+</section>
+

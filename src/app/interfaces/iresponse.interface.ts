@@ -6,4 +6,5 @@ export interface IResponse {
   total: number;
   total_pages: number;
   results: IUser[];
+  error?: string;
 }
