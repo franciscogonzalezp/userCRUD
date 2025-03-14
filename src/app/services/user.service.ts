@@ -15,7 +15,7 @@ export class UserService {
     return this.httpClient.get<IResponse>(this.endpoint);
   }
 
-  getUser(id: number): Observable<IUser> {
+  getUser(id: string): Observable<IUser> {
     return this.httpClient.get<IUser>(`${this.endpoint}/${id}`)
   }
 
@@ -23,7 +23,7 @@ export class UserService {
     return this.httpClient.post<IUser>(this.endpoint, body)
   }
 
-  deleteUser(id: number): Observable<IUser> {
+  deleteUser(id: string): Observable<IUser> {
     return this.httpClient.delete<IUser>(`${this.endpoint}/${id}`)
   }
 

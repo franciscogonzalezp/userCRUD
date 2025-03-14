@@ -1,1 +1,52 @@
-<p>form-user works!</p>
+<div class="container mt-5">
+  <form novalidate [formGroup]="userForm" (ngSubmit)="sendData()" class="row g-4 justify-content-center">
+    <div class="col-7">
+      <legend class="d-block">{{title()}}</legend>
+    </div>
+
+    <div class="col-7">
+      <label class="form-label" for="first_name">Nombre usuario</label>
+      <input type="text" id="first_name" class="form-control" formControlName="first_name">
+      @if(hasError('first_name')) {
+        <div class="text-danger">
+          <small class="text-danger">{{getMessageError('nombre')}}</small>
+        </div>
+      }
+    </div>
+
+    <div class="col-7">
+      <label class="form-label" for="last_name">Apellido usuario</label>
+      <input type="text" id="last_name" class="form-control" formControlName="last_name">
+      @if(hasError('last_name')) {
+        <div class="text-danger">
+          <small class="text-danger">{{getMessageError('apellido')}}</small>
+        </div>
+      }
+    </div>
+
+    <div class="col-7">
+      <label class="form-label" for="email">Email usuario</label>
+      <input type="text" id="email" class="form-control" formControlName="email">
+      @if(hasError('email')) {
+        <div class="text-danger">
+          <small class="text-danger">{{getMessageError('email')}}</small>
+        </div>
+      }
+    </div>
+
+    <div class="col-7">
+      <label class="form-label" for="image">Imagen usuario</label>
+      <input type="text" id="image" class="form-control" formControlName="image">
+      @if(hasError('image')) {
+        <div class="text-danger">
+          <small class="text-danger">{{getMessageError('imagen')}}</small>
+        </div>
+      }
+    </div>
+
+    <div class="col-7">
+      <button class="d-block btn btn-info" [disabled]="!userForm.valid">{{btnName()}}</button>
+    </div>
+
+  </form>
+</div>

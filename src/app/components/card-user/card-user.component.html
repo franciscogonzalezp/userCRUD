@@ -4,15 +4,15 @@
     <h5 class="card-title">{{user()?.first_name + ' ' + user()?.last_name}}</h5>
   </div>
   <div class="card-body mb-3">
-    <a class="card-link icon-link" [routerLink]="['/user', user()?.id]">
+    <a class="card-link icon-link" [routerLink]="['/user', user()?._id]">
       <img class="bi" src="./verDetalle_ico.png">
       Ver detalle
     </a>
-    <a class="card-link icon-link" [routerLink]="['/updateuser', user()?.id]">
+    <a class="card-link icon-link" [routerLink]="['/updateuser', user()?._id]">
       <img class="bi" src="./editar_ico.png">
       Modificar
     </a>
-    <a class="card-link icon-link" (click)="deleteUser(user()?.id)">
+    <a class="card-link icon-link" (click)="deleteUser(user()?._id)">
       <img class="bi" src="./eliminar_ico.png">
       Eliminar
     </a>

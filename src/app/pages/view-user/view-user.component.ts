@@ -9,7 +9,7 @@ import { IUser } from '../../interfaces/iuser.interface';
   styleUrl: './view-user.component.css'
 })
 export class ViewUserComponent {
-  @Input() id!: number;
+  @Input() id!: string;
   user!: IUser;
 
   userService: UserService = inject(UserService)
@@ -17,19 +17,11 @@ export class ViewUserComponent {
   getUser() {
     this.userService.getUser(this.id).subscribe({
       next: (response) => {
-        this.user = {
-          "id": 55,
-          "first_name": "Emilio",
-          "last_name": "Alva Durán",
-          "username": "emilio.alva",
-          "email": "emilio.alvaduran@peticiones.online",
-          "image": "https://i.pravatar.cc/500?u=emilio.alvaduran@peticiones.online"
-      }
-       /*  if(!response.username) {
+        if(!response.username) {
           alert(response)
         }else {
-          console.log("Usuario", response)
-        } */
+          this.user = response
+        }
       },
       error: (error) => {
         console.log("Error al consultar el usuario", error)
