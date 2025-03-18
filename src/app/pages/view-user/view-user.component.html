@@ -1,21 +1,16 @@
 <section class="container view-user text-center py-5">
   <div class="row d-flex justify-content-center align-items-center">
-    <!-- Imagen de usuario -->
     <div class="col-12 col-md-6 col-lg-5 d-flex justify-content-center">
       <figure class="mb-4 mb-md-0">
-        <img [src]="user.image" [alt]="user.username"
-             class="rounded-circle border border-3 border-white shadow-lg"
-             style="width: 50vw; max-width: 300px; height: auto; object-fit: cover;">
+        <img [src]="user.image" [alt]="user.username" class="rounded-circle border border-3 border-white shadow-lg"
+          style="width: 50vw; max-width: 300px; height: auto; object-fit: cover;">
       </figure>
     </div>
-
-    <!-- Información del usuario -->
     <div class="col-12 col-md-5 col-lg-5 text-md-start text-center">
       <h3 class="fw-bold">{{ user.first_name + ' ' + user.last_name }}</h3>
       <p class="text-muted mb-1"><strong>Username:</strong> {{ user.username }}</p>
       <p class="text-muted"><strong>Email:</strong> {{ user.email }}</p>
 
-      <!-- Botones -->
       <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start mt-3">
         <button type="button" class="btn btn-danger" (click)="deleteBtnClick()">Eliminar</button>
         <button type="button" class="btn btn-warning" [routerLink]="['/updateuser', user._id]">Actualizar</button>
@@ -24,7 +19,5 @@
     </div>
   </div>
 </section>
-
-
 
 <app-modal [username]="user.first_name" (acceptEmit)="deleteUser()"></app-modal>

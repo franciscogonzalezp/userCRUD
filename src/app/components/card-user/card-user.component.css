@@ -1,0 +1,11 @@
+.card:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transform: translateY(-5px); /* Efecto de elevación */
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+  opacity: 0.8; /* Reduce un poco la opacidad */
+  transform: scale(1.05); /* Hace que el botón crezca ligeramente */
+  transition: all 0.2s ease-in-out;
+}
