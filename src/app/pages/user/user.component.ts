@@ -2,6 +2,8 @@ import { Component, inject, Input } from '@angular/core';
 import { FormUserComponent } from '../../components/form-user/form-user.component';
 import { IUser } from '../../interfaces/iuser.interface';
 import { UserService } from '../../services/user.service';
+import { toast } from 'ngx-sonner';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -14,19 +16,33 @@ export class UserComponent {
   user!: IUser;
   operation: string = "new"
 
-  userSevice = inject(UserService)
+  userService = inject(UserService)
 
   getDataForm(user: IUser){
-    console.log("Data form user", user)
+    if(this.operation === 'update') user._id = this.id
+    const userObservable: Observable<IUser> = this.operation === 'new' ? this.userService.create(user) : this.userService.update(user)
+    userObservable.subscribe({
+      next: res => {
+        if(res.error){
+          toast.error(`Se ha producido un error: ${res.error}`)
+        } else {
+          this.user = res
+          toast.success("La operacion ha terminado correctamente")
+        }
+      },
+      error: msg => {
+        toast.error(`Se ha producido un error: ${msg.error}`)
+      }
+    })
   }
 
   getUser(){
-    this.userSevice.getUser(this.id).subscribe({
+    this.userService.getById(this.id).subscribe({
       next: res => {
         this.user = res
       },
-      error: error => {
-        console.log("Error", error)
+      error: msg => {
+        toast.error(`Se ha producido un error: ${msg.error}`)
       }
     })
   }

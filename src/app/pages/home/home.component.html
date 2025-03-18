@@ -1,11 +1,44 @@
-<section class="usuarios container text-center">
-  <div class="row">
-    @for (usuario of usersList; track usuario.id) {
-      <article class="col-12 col-md-6 col-lg-4 g-4">
-        <app-card-user [user]="usuario"></app-card-user>
-      </article>
-    }@empty {
-      <p>No hay registros</p>
-    }
-  </div>
+<section class="usuarios container mt-4">
+  @if(loading){
+    <div class="row">
+      @for (item of [1,2,3]; track item) {
+        <div class="col-12 col-md-6 col-lg-4 g-4">
+          <app-skeleton-card></app-skeleton-card>
+        </div>
+      }
+    </div>
+  }
+
+  @if(!loading){
+    <div class="row">
+      @for (usuario of usersList; track usuario.id) {
+        <article class="col-12 col-md-6 col-lg-4 g-4">
+          <app-card-user [user]="usuario"></app-card-user>
+        </article>
+      }@empty {
+        <p>No hay registros</p>
+      }
+    </div>
+
+    <nav aria-label="Navegación de páginas" class="mt-4">
+      <ul class="pagination row justify-content-center gap-2">
+        <li class="page-item col-12 col-md-3 col-lg-2" [class.disabled]="page <= 1">
+          <a class="page-link d-flex align-items-center justify-content-center gap-2 px-3 py-2 border rounded-pill shadow-sm text-primary"
+            (click)="paginationBtnClick('previous')" >
+            <img src="./anterior_ico.png" alt="Anterior" style="width: 22px; height: 22px;">
+            <span>Anterior</span>
+          </a>
+        </li>
+        <li class="page-item col-12 col-md-3 col-lg-2" [class.disabled]="page >= totalPages">
+          <a class="page-link d-flex align-items-center justify-content-center gap-2 px-3 py-2 border rounded-pill shadow-sm text-primary"
+            (click)="paginationBtnClick('next')">
+            <img src="./siguiente_ico.png" alt="Siguiente" style="width: 22px; height: 22px;">
+            <span>Siguiente</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  }
+
+
 </section>
