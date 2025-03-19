@@ -2,6 +2,9 @@ import { Component, inject, Input } from '@angular/core';
 import { FormUserComponent } from '../../components/form-user/form-user.component';
 import { IUser } from '../../interfaces/iuser.interface';
 import { UserService } from '../../services/user.service';
+import { toast } from 'ngx-sonner';
+import { Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user',
@@ -14,19 +17,44 @@ export class UserComponent {
   user!: IUser;
   operation: string = "new"
 
-  userSevice = inject(UserService)
+  userService = inject(UserService)
+  spinnerService = inject(NgxSpinnerService)
 
   getDataForm(user: IUser){
-    console.log("Data form user", user)
+    this.spinnerService.show()
+    if(this.operation === 'update') user._id = this.id
+    const userObservable: Observable<IUser> = this.operation === 'new' ? this.userService.create(user) : this.userService.update(user)
+    userObservable.subscribe({
+      next: res => {
+        this.spinnerService.hide()
+        if(res.error){
+          toast.error(`Se ha producido un error: ${res.error}`)
+        } else {
+          this.user = res
+          toast.success("La operacion ha terminado correctamente")
+        }
+      },
+      error: msg => {
+        this.spinnerService.hide()
+        toast.error(`Se ha producido un error: ${msg.error}`)
+      }
+    })
   }
 
   getUser(){
-    this.userSevice.getUser(this.id).subscribe({
+    this.spinnerService.show()
+    this.userService.getById(this.id).subscribe({
       next: res => {
-        this.user = res
+        if(res.error){
+          toast.error(`Se ha producido un error: ${res.error}`)
+        } else {
+          this.user = res
+        }
+        this.spinnerService.hide()
       },
-      error: error => {
-        console.log("Error", error)
+      error: msg => {
+        this.spinnerService.hide()
+        toast.error(`Se ha producido un error: ${msg.error}`)
       }
     })
   }

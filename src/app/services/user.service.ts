@@ -11,23 +11,23 @@ export class UserService {
   private endpoint: string = "https://peticiones.online/api/users"
   private httpClient = inject(HttpClient);
 
-  getAllUsers(): Observable<IResponse> {
-    return this.httpClient.get<IResponse>(this.endpoint);
+  getAll(page: number = 1, per_page: number = 6): Observable<IResponse> {
+    return this.httpClient.get<IResponse>(`${this.endpoint}?page=${page}&total=${per_page}`);
   }
 
-  getUser(id: string): Observable<IUser> {
+  getById(id: string): Observable<IUser> {
     return this.httpClient.get<IUser>(`${this.endpoint}/${id}`)
   }
 
-  createUser(body: IUser): Observable<IUser> {
+  create(body: IUser): Observable<IUser> {
     return this.httpClient.post<IUser>(this.endpoint, body)
   }
 
-  deleteUser(id: string): Observable<IUser> {
+  delete(id: string | undefined): Observable<IUser> {
     return this.httpClient.delete<IUser>(`${this.endpoint}/${id}`)
   }
 
-  updateUser(body: IUser): Observable<IUser> {
-    return this.httpClient.put<IUser>(`${this.endpoint}/${body.id}`, body)
+  update(body: IUser): Observable<IUser> {
+    return this.httpClient.put<IUser>(`${this.endpoint}/${body._id}`, body)
   }
 }

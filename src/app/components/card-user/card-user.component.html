@@ -1,20 +1,31 @@
-<div class="card" style="width: 18rem;">
-  <img [src]="user()?.image" [alt]="user()?.username" class="card-img p-4">
-  <div class="card-body">
-    <h5 class="card-title">{{user()?.first_name + ' ' + user()?.last_name}}</h5>
+<div class="card text-center shadow-sm h-100">
+  <div class="card-header bg-white border-0">
+    <img [src]="user()?.image" class="rounded-circle border border-3 border-white shadow" alt="Perfil"
+      style="width: 100px; height: 100px; object-fit: cover;">
   </div>
-  <div class="card-body mb-3">
-    <a class="card-link icon-link" [routerLink]="['/user', user()?._id]">
-      <img class="bi" src="./verDetalle_ico.png">
-      Ver detalle
-    </a>
-    <a class="card-link icon-link" [routerLink]="['/updateuser', user()?._id]">
-      <img class="bi" src="./editar_ico.png">
-      Modificar
-    </a>
-    <a class="card-link icon-link" (click)="deleteUser(user()?._id)">
-      <img class="bi" src="./eliminar_ico.png">
-      Eliminar
-    </a>
+
+  <div class="card-body">
+    <h5 class="mt-2">{{ user()?.first_name + ' ' + user()?.last_name }}</h5>
+    <p class="text-muted">{{ user()?.email }}</p>
+
+    <div class="d-flex justify-content-center gap-3 mt-3">
+      <a class="d-flex align-items-center gap-2 text-decoration-none text-primary"
+        [routerLink]="['/user', user()?._id]">
+        <img src="./verDetalle_ico.png" alt="Ver detalle" style="width: 18px; height: 18px;">
+        <span>Ver detalle</span>
+      </a>
+      <a class="d-flex align-items-center gap-2 text-decoration-none text-warning"
+        [routerLink]="['/updateuser', user()?._id]">
+        <img src="./editar_ico.png" alt="Modificar" style="width: 18px; height: 18px;">
+        <span>Modificar</span>
+      </a>
+      <a class="d-flex align-items-center gap-2 text-decoration-none text-danger" (click)="deleteBtnClick()">
+        <img src="./eliminar_ico.png" alt="Eliminar" style="width: 18px; height: 18px;">
+        <span>Eliminar</span>
+      </a>
+    </div>
   </div>
 </div>
+
+
+<app-modal [username]="user()?.first_name" (acceptEmit)="deleteUser()"></app-modal>
