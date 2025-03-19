@@ -20,7 +20,7 @@ export class FormUserComponent {
     this.userForm = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
       image: new FormControl('', [Validators.required])
     })
 
@@ -38,11 +38,12 @@ export class FormUserComponent {
   }
 
   updateForm(user: IUser) {
+    const {first_name, last_name, email, image} = user
     this.userForm.patchValue({
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      image: user.image
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      image: image
     });
   }
 
@@ -55,6 +56,10 @@ export class FormUserComponent {
   }
 
   getMessageError(field: string) {
-    return `El campo ${field} es obligatorio`
+    let errorMsg = `El campo ${field} es obligatorio`
+    if(field === 'email' && this.userForm.controls[field].hasError('pattern')) {
+      errorMsg = `El campo ${field} tiene un formato incorrecto`
+    }
+    return errorMsg
   }
 }

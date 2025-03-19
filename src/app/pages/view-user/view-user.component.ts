@@ -4,6 +4,7 @@ import { IUser } from '../../interfaces/iuser.interface';
 import { toast } from 'ngx-sonner';
 import { Router, RouterLink } from '@angular/router';
 import { ModalComponent } from "../../components/modal/modal.component";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-view-user',
@@ -18,9 +19,11 @@ export class ViewUserComponent {
 
   userService: UserService = inject(UserService)
   router = inject(Router)
+  spinnerService = inject(NgxSpinnerService)
   @ViewChild(ModalComponent) modalUser!: ModalComponent;
 
   getUser() {
+    this.spinnerService.show()
     this.userService.getById(this.id).subscribe({
       next: (response) => {
         if(response.error) {
@@ -28,8 +31,10 @@ export class ViewUserComponent {
         }else {
           this.user = response
         }
+        this.spinnerService.hide()
       },
       error: (msg) => {
+        this.spinnerService.hide()
         toast.error(`Se ha producido un error: ${msg.error}`)
       }
     })
@@ -40,6 +45,7 @@ export class ViewUserComponent {
   }
 
   deleteUser(){
+    this.spinnerService.show()
     this.userService.delete(this.id).subscribe({
       next: (response) => {
         if(response.error) {
@@ -47,13 +53,16 @@ export class ViewUserComponent {
         }else {
           toast.success("Se ha eliminado correctamente al usuario")
         }
+        this.spinnerService.hide()
+        this.modalUser.close()
+        this.router.navigate(['/home'])
       },
       error: (msg) => {
         toast.error(`Se ha producido un error: ${msg.error}`)
+        this.spinnerService.hide()
+        this.modalUser.close()
       }
     })
-    this.modalUser.close()
-    this.router.navigate(['/home'])
   }
 
   ngOnInit(){

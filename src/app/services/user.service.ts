@@ -11,8 +11,8 @@ export class UserService {
   private endpoint: string = "https://peticiones.online/api/users"
   private httpClient = inject(HttpClient);
 
-  getAll(page: number = 1, per_page: number = 5): Observable<IResponse> {
-    return this.httpClient.get<IResponse>(`${this.endpoint}?page=${page}`);
+  getAll(page: number = 1, per_page: number = 6): Observable<IResponse> {
+    return this.httpClient.get<IResponse>(`${this.endpoint}?page=${page}&total=${per_page}`);
   }
 
   getById(id: string): Observable<IUser> {

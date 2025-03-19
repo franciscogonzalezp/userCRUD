@@ -4,6 +4,7 @@ import { IUser } from '../../interfaces/iuser.interface';
 import { UserService } from '../../services/user.service';
 import { toast } from 'ngx-sonner';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user',
@@ -17,12 +18,15 @@ export class UserComponent {
   operation: string = "new"
 
   userService = inject(UserService)
+  spinnerService = inject(NgxSpinnerService)
 
   getDataForm(user: IUser){
+    this.spinnerService.show()
     if(this.operation === 'update') user._id = this.id
     const userObservable: Observable<IUser> = this.operation === 'new' ? this.userService.create(user) : this.userService.update(user)
     userObservable.subscribe({
       next: res => {
+        this.spinnerService.hide()
         if(res.error){
           toast.error(`Se ha producido un error: ${res.error}`)
         } else {
@@ -31,17 +35,25 @@ export class UserComponent {
         }
       },
       error: msg => {
+        this.spinnerService.hide()
         toast.error(`Se ha producido un error: ${msg.error}`)
       }
     })
   }
 
   getUser(){
+    this.spinnerService.show()
     this.userService.getById(this.id).subscribe({
       next: res => {
-        this.user = res
+        if(res.error){
+          toast.error(`Se ha producido un error: ${res.error}`)
+        } else {
+          this.user = res
+        }
+        this.spinnerService.hide()
       },
       error: msg => {
+        this.spinnerService.hide()
         toast.error(`Se ha producido un error: ${msg.error}`)
       }
     })
