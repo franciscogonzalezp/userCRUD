@@ -1,7 +1,6 @@
 <div class="card text-center shadow-sm h-100">
   <div class="card-header bg-white border-0">
-    <img [src]="user()?.image" class="rounded-circle border border-3 border-white shadow" alt="Perfil"
-      style="width: 100px; height: 100px; object-fit: cover;">
+    <img [src]="user()?.image" class="rounded-circle border border-3 border-white shadow img-perfil" alt="Perfil">
   </div>
 
   <div class="card-body">
@@ -9,20 +8,18 @@
     <p class="text-muted">{{ user()?.email }}</p>
 
     <div class="d-flex justify-content-center gap-3 mt-3">
-      <a class="d-flex align-items-center gap-2 text-decoration-none text-primary"
-        [routerLink]="['/user', user()?._id]">
-        <img src="./verDetalle_ico.png" alt="Ver detalle" style="width: 18px; height: 18px;">
+      <a class="d-flex align-items-center gap-2 text-decoration-none text-primary" [routerLink]="['/user', user()?._id]">
+        <img src="./verDetalle_ico.png" alt="Ver detalle" class="img-icon">
         <span>Ver detalle</span>
       </a>
-      <a class="d-flex align-items-center gap-2 text-decoration-none text-warning"
-        [routerLink]="['/updateuser', user()?._id]">
-        <img src="./editar_ico.png" alt="Modificar" style="width: 18px; height: 18px;">
+      <a class="d-flex align-items-center gap-2 text-decoration-none text-warning" [routerLink]="['/updateuser', user()?._id]">
+        <img src="./editar_ico.png" alt="Modificar" class="img-icon">
         <span>Modificar</span>
       </a>
-      <a class="d-flex align-items-center gap-2 text-decoration-none text-danger" (click)="deleteBtnClick()">
-        <img src="./eliminar_ico.png" alt="Eliminar" style="width: 18px; height: 18px;">
+      <a class="d-flex align-items-center gap-2 text-decoration-none text-danger" style="cursor: pointer;" (click)="deleteBtnClick()">
+        <img src="./eliminar_ico.png" alt="Eliminar" class="img-icon">
         <span>Eliminar</span>
-      </a>
+    </a>
     </div>
   </div>
 </div>

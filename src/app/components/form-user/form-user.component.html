@@ -6,7 +6,7 @@
 
     <div class="col-7">
       <label class="form-label" for="first_name">Nombre usuario</label>
-      <input type="text" id="first_name" class="form-control" formControlName="first_name">
+      <input type="text" id="first_name" class="form-control" formControlName="first_name" [class.border-danger]="hasError('first_name')">
       @if(hasError('first_name')) {
         <div class="text-danger">
           <small class="text-danger">{{getMessageError('nombre')}}</small>
@@ -16,7 +16,7 @@
 
     <div class="col-7">
       <label class="form-label" for="last_name">Apellido usuario</label>
-      <input type="text" id="last_name" class="form-control" formControlName="last_name">
+      <input type="text" id="last_name" class="form-control" formControlName="last_name" [class.border-danger]="hasError('last_name')">
       @if(hasError('last_name')) {
         <div class="text-danger">
           <small class="text-danger">{{getMessageError('apellido')}}</small>
@@ -26,7 +26,7 @@
 
     <div class="col-7">
       <label class="form-label" for="email">Email usuario</label>
-      <input type="text" id="email" class="form-control" formControlName="email">
+      <input type="text" id="email" class="form-control" formControlName="email" [class.border-danger]="hasError('email')">
       @if(hasError('email')) {
         <div class="text-danger">
           <small class="text-danger">{{getMessageError('email')}}</small>
@@ -36,7 +36,7 @@
 
     <div class="col-7">
       <label class="form-label" for="image">Imagen usuario</label>
-      <input type="text" id="image" class="form-control" formControlName="image">
+      <input type="text" id="image" class="form-control" formControlName="image" [class.border-danger]="hasError('image')">
       @if(hasError('image')) {
         <div class="text-danger">
           <small class="text-danger">{{getMessageError('imagen')}}</small>

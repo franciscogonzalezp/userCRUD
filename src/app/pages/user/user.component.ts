@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { toast } from 'ngx-sonner';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -17,6 +18,7 @@ export class UserComponent {
   user!: IUser;
   operation: string = "new"
 
+  router = inject(Router)
   userService = inject(UserService)
   spinnerService = inject(NgxSpinnerService)
 
@@ -32,6 +34,7 @@ export class UserComponent {
         } else {
           this.user = res
           toast.success("La operacion ha terminado correctamente")
+          this.router.navigate(['/home'])
         }
       },
       error: msg => {

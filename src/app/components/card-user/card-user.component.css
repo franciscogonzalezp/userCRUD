@@ -1,11 +1,22 @@
 .card:hover {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   transform: translateY(-5px); /* Efecto de elevación */
   transition: all 0.3s ease-in-out;
 }
 
 .btn:hover {
-  opacity: 0.8; /* Reduce un poco la opacidad */
-  transform: scale(1.05); /* Hace que el botón crezca ligeramente */
+  opacity: 0.8;
+  transform: scale(1.05);
   transition: all 0.2s ease-in-out;
+}
+
+.img-perfil {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.img-icon{
+  width: 18px;
+  height: 18px;
 }
